@@ -182,7 +182,7 @@ def segment_main(user, admin, mode, **kwargs):
 			first_seg = False
 		else:
 			cpout += '<div class="tok_space" id="tok'+str(tok_counter)+'" style="display:none" onclick="act('+"'ins:"+'tok'+str(tok_counter)+"'"+')">&nbsp;</div>'
-			cpout += '\t\t\t<div id="segend_post_tok'+str(tok_counter)+'" class="seg_end" onclick="act('+"'del:"+'tok'+str(tok_counter)+"'"+')">||</div>'
+			cpout += '\t\t\t<div id="segend_post_tok'+str(tok_counter)+'" class="seg_end" onclick="act('+"'del:"+'tok'+str(tok_counter)+"'"+')" onmouseover="act('+"'show_seg_num:"+'segend_post_tok'+str(tok_counter)+"'"+')">||</div>'
 			del_token_to_seg[tok_counter] = seg_counter
 			cpout += '\t\t</div>'
 		cpout += '\t\t<div id="seg'+ str(seg_counter) + '" class="seg">'

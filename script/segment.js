@@ -21,7 +21,7 @@ function act(action){
 
     var action_type = action.split(":")[0];
     var action_params = action.split(":")[1];
-
+    console.log(action)
     action_seg = $('#'+action_params).parent().attr("id")
     document.getElementById("logging").value += action + "," + action_seg.replace("seg","");
     if (document.getElementById("undo_state").value == ""){
@@ -41,6 +41,32 @@ function act(action){
         delete_segment(action_params);
         append_undo("ins:"+action_params);
         }
+    else if (action_type == "show_seg_num"){
+        show_segment_number(action_params);
+    }
+}
+
+function show_segment_number(segend_id){
+    segends = Array.from(document.getElementById("segment_canvas").getElementsByClassName("seg_end"))
+    console.log(segends)
+    seg_num = segends.reduce(
+        function(count_found, element) {
+            console.log(count_found)
+            if (count_found[1]) {
+                return [count_found[0], true]
+            }
+            else if (element.id === segend_id) {
+                return [count_found[0], true]
+            } else {
+                return [count_found[0] + 1, false]
+            }
+        },
+        [0, false]
+    );
+    seg_end = document.getElementById(segend_id)
+    seg_num = seg_num[0]
+    // TODO Add this value and then show it as two step.
+    // I can either
 }
 
 function insert_segment(previous_token_id){
