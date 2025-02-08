@@ -44,14 +44,15 @@ function act(action){
     else if (action_type == "show_seg_num"){
         show_segment_number(action_params);
     }
+    // else if (action_type == "hide_seg_num"){
+    //     hide_segment_number(action_params);
+    // }
 }
 
 function show_segment_number(segend_id){
     segends = Array.from(document.getElementById("segment_canvas").getElementsByClassName("seg_end"))
-    console.log(segends)
     seg_num = segends.reduce(
         function(count_found, element) {
-            console.log(count_found)
             if (count_found[1]) {
                 return [count_found[0], true]
             }
@@ -65,9 +66,20 @@ function show_segment_number(segend_id){
     );
     seg_end = document.getElementById(segend_id)
     seg_num = seg_num[0]
-    // TODO Add this value and then show it as two step.
-    // I can either
+    if ( $('#segnum_'+segend_id).length ) {
+        document.getElementById('#segnum_'+segend_id).textContent = seg_num
+        document.getElementById('#segnum_'+segend_id).style.display="inline"
+    }
+    $('#segnum_'+segend_id).after(
+        '<div id="segnum_'+segend_id+' text="'+seg_num+'"/>'
+    )
 }
+
+// function hide_segment_number(segend_id) {
+//     if ( $('#segnum_'+segend_id).length ) {
+//         document.getElementById("#segnum_"+segend_id).style.display="none"
+//     }
+// }
 
 function insert_segment(previous_token_id){
 
@@ -77,7 +89,7 @@ function insert_segment(previous_token_id){
     }
     else
     {
-        $('#'+previous_token_id).after('<div id="segend_post_'+previous_token_id+'" class="seg_end" onclick="act('+"'del:"+previous_token_id+"'"+')">||</div>');
+        $('#'+previous_token_id).after('<div id="segend_post_'+previous_token_id+'" class="seg_end" onclick="act('+"'del:"+previous_token_id+"'"+')">||<div/>');
     }
     document.getElementById(previous_token_id).style.display = "none";
 }
