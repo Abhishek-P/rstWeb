@@ -23,8 +23,10 @@ import hashlib
 from time import time
 
 # FIXME: cgitb is insecure and should be removed from production code.
-import cgitb
-cgitb.enable()
+import sys
+if sys.version_info[0] == 2 or (sys.version[0] == 3 and sys.version[1] < 13):
+    import cgitb
+    cgitb.enable()
 
 
 from modules.configobj import ConfigObj

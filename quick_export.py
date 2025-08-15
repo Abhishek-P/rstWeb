@@ -8,9 +8,12 @@ Author: Amir Zeldes
 """
 
 
-import cgitb
-import codecs
 import sys
+use_cgitb = False
+if sys.version_info[0] == 2 or (sys.version[0] == 3 and sys.version[1] < 13):
+	import cgitb
+	use_cgitb = True
+import codecs
 import cgi
 import os, re
 from modules.configobj import ConfigObj
@@ -26,7 +29,8 @@ def quickexp_main(user, admin, mode, **kwargs):
 	UTF8Writer = codecs.getwriter('utf8')
 	sys.stdout = UTF8Writer(sys.stdout)
 
-	cgitb.enable()
+	if use_cgitb:
+		cgitb.enable()
 
 	###GRAPHICAL PARAMETERS###
 	top_spacing = 20

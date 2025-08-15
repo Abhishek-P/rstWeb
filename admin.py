@@ -7,7 +7,11 @@ assign documents to users and set up projects
 Author: Amir Zeldes
 """
 
-import cgitb
+import sys
+use_cgitb = False
+if sys.version_info[0] == 2 or (sys.version[0] == 3 and sys.version[1] < 13):
+	import cgitb
+	use_cgitb = True
 import cgi
 import errno
 from os.path import isfile, join
@@ -32,7 +36,8 @@ def admin_main(user, admin, mode, **kwargs):
 	exportdir = scriptpath + config['exportdir'].replace("/",os.sep)
 
 	theform = kwargs
-	cgitb.enable()
+	if use_cgitb:
+		cgitb.enable()
 
 	import re
 	def is_email(email):
