@@ -10,10 +10,13 @@ Author: Amir Zeldes
 """
 
 import _version
-import cgitb
 from modules.rstweb_sql import *
 import codecs
 import sys
+use_cgitb = False
+if sys.version_info[0] == 2 or (sys.version[0] == 3 and sys.version[1] < 13):
+	import cgitb
+	use_cgitb = True
 import re
 from modules.configobj import ConfigObj
 from modules.pathutils import *
@@ -33,7 +36,8 @@ def segment_main(user, admin, mode, **kwargs):
 	UTF8Writer = codecs.getwriter('utf8')
 	sys.stdout = UTF8Writer(sys.stdout)
 
-	cgitb.enable()
+	if use_cgitb:
+		cgitb.enable()
 
 	config = ConfigObj(userdir + 'config.ini')
 	templatedir = scriptpath + config['controltemplates'].replace("/",os.sep)

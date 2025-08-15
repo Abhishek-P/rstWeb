@@ -5,9 +5,10 @@ from structure import build_canvas
 from modules.rstweb_reader import read_rst
 from modules.rstweb_sql import get_rst_rels
 import io, sys, os
-import cgi, cgitb
+import cgi
 import codecs
 from six import iteritems
+import sys
 
 
 def get_structure_main(**kwargs):

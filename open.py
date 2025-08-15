@@ -8,7 +8,11 @@ to the user. Other versions of each document's annotation are visible to those u
 Author: Amir Zeldes
 """
 
-import cgitb
+import sys
+use_cgitb = False
+if sys.version_info[0] == 2 or (sys.version[0] == 3 and sys.version[1] < 13):
+	import cgitb
+	use_cgitb = True
 import cgi
 import _version
 
@@ -24,7 +28,8 @@ def open_main(user, admin, mode, **kwargs):
 	userdir = scriptpath + "users" + os.sep
 	theform = kwargs
 
-	cgitb.enable()
+	if use_cgitb:
+		cgitb.enable()
 	
 	config = ConfigObj(userdir + 'config.ini')
 	templatedir = scriptpath + config['controltemplates'].replace("/",os.sep)

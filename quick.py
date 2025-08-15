@@ -1,13 +1,14 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import cgitb
 import sys
+if sys.version_info[0] == 2 or (sys.version[0] == 3 and sys.version[1] < 13):
+	import cgitb
+	cgitb.enable()
 import os
 from modules.configobj import ConfigObj
 from modules.pathutils import *
 
-cgitb.enable()
 
 
 def quick_main(mode='local'):

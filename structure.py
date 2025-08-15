@@ -8,11 +8,13 @@ manipulations of the interface are managed by script/structure.js.
 Author: Amir Zeldes
 """
 
-
-import cgitb
+import sys
+use_cgitb = False
+if sys.version_info[0] == 2 or (sys.version[0] == 3 and sys.version[1] < 13):
+	import cgitb
+	use_cgitb = True
 from modules.rstweb_sql import *
 import codecs
-import sys
 import cgi
 import os
 import datetime
@@ -483,7 +485,8 @@ def structure_main(user, admin, mode, **kwargs):
 	userdir = scriptpath + "users" + os.sep
 	theform = kwargs
 
-	cgitb.enable()
+	if use_cgitb:
+		cgitb.enable()
 
 	config = ConfigObj(userdir + 'config.ini')
 	templatedir = scriptpath + config['controltemplates'].replace("/",os.sep)
